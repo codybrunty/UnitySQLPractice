@@ -6,9 +6,9 @@ using UnityEngine.Networking;
 public class NetworkManager : Singleton<NetworkManager>{
 
     private bool requesting = false;
-    [SerializeField] private bool isLocalHost = true;
+    [SerializeField] private bool isLocal = true;
     private string localhost = "http://localhost/UnitySQLPractice/";
-    private string aws = "*****";
+    private string aws = "https://database.codybrunty.com/UnitySQLPractice/";
 
     #region Login
     public void Login(string username, string password) {
@@ -185,7 +185,7 @@ public class NetworkManager : Singleton<NetworkManager>{
     #region Get Server
     private string GetServer() {
         string server = "";
-        if (isLocalHost) {
+        if (isLocal) {
             server = localhost;
         }
         else {
@@ -194,4 +194,5 @@ public class NetworkManager : Singleton<NetworkManager>{
         return server;
     }
     #endregion
+
 }
