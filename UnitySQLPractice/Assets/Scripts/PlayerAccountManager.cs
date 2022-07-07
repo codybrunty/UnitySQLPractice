@@ -30,10 +30,5 @@ public class PlayerAccountManager : Singleton<PlayerAccountManager>{
     public int GetScore() {
         return score;
     }
-    public void ClearPlayerAccountData() {
-        username = "";
-        usernameText.text = "";
-        score = 0;
-        scoreText.text = "";
-    }
+
 }

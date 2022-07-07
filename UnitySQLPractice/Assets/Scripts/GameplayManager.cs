@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class GameplayManager : Singleton<GameplayManager>{
 
-    [SerializeField] private Button increaseButton;
-    [SerializeField] private Button saveButton;
+    [SerializeField] private GameObject gameUI;
     [SerializeField] private Text currentScoreText;
     [SerializeField] private int currentScore = 0;
 
@@ -16,14 +15,10 @@ public class GameplayManager : Singleton<GameplayManager>{
     }
 
     public void ShowGameUI() {
-        currentScoreText.gameObject.SetActive(true);
-        increaseButton.gameObject.SetActive(true);
-        saveButton.gameObject.SetActive(true);
+        gameUI.SetActive(true);
     }
     public void HideGameUI() {
-        currentScoreText.gameObject.SetActive(false);
-        increaseButton.gameObject.SetActive(false);
-        saveButton.gameObject.SetActive(false);
+        gameUI.SetActive(false);
     }
 
     public void IncreaseButtonOnClick() {
@@ -32,6 +27,7 @@ public class GameplayManager : Singleton<GameplayManager>{
     }
 
     public void SaveButtonOnClick() {
+        if (NetworkManager.instance.IsRequesting()) { return; }
         if(currentScore > PlayerAccountManager.instance.GetScore()) {
             NetworkManager.instance.SaveScore(PlayerAccountManager.instance.GetUsername(), currentScore);
         }

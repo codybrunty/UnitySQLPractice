@@ -78,26 +78,6 @@ public class LoginManager : Singleton<LoginManager>{
         NetworkManager.instance.Login(usernameInputText.text, passwordInputText.text);
     }
 
-    public void LoginResponse(string response) {
-        switch (response) {
-            case "1":
-                LoginError("Database Connection Error");
-                break;
-            case "2":
-                LoginError("Username Query Failed");
-                break;
-            case "3":
-                LoginError("Username Error");
-                break;
-            case "4":
-                LoginError("Password Error");
-                break;
-            default:
-                LoginSuccess(response);
-                break;
-        }
-    }
-
     public void LoginSuccess(string response) {
         PlayerAccountManager.instance.SetPlayerAccountData(response.Split(':')[0], int.Parse(response.Split(':')[1]));
         GoToGame();
@@ -121,33 +101,7 @@ public class LoginManager : Singleton<LoginManager>{
         NetworkManager.instance.CreateNewPlayer(emailInputText.text, usernameInputText.text, passwordInputText.text);
     }
 
-    public void CreateNewPlayerResponse(string response) {
-        switch (response) {
-            case "1":
-                CreateNewPlayerError("Database Connection Error");
-                break;
-            case "2":
-                CreateNewPlayerError("Username Query Failed");
-                break;
-            case "3":
-                CreateNewPlayerError("Username Already Exists");
-                break;
-            case "4":
-                CreateNewPlayerError("Email Query Failed");
-                break;
-            case "5":
-                CreateNewPlayerError("Email Already Exists");
-                break;
-            case "6":
-                CreateNewPlayerError("Insert Query Failed");
-                break;
-            default:
-                CreateNewPlayerSuccess();
-                break;
-        }
-    }
-
-    private void CreateNewPlayerSuccess() {
+    public void CreateNewPlayerSuccess() {
         NetworkManager.instance.Login(usernameInputText.text, passwordInputText.text);
     }
 
@@ -163,7 +117,6 @@ public class LoginManager : Singleton<LoginManager>{
 
     #region Log Out
     public void LogOutButtonOnClick() {
-        PlayerAccountManager.instance.ClearPlayerAccountData();
         GoToMainMenu();
     }
     #endregion
